@@ -1,0 +1,76 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body class="admin_body">
+    <header>
+        <nav class="admin_header">
+            <a href="./spasindex.html"><img src="./images_home/temp_logo.webp" alt="logo udruge"  id="header_logo"></a>
+            <h2 id="saved_animals">Do sad spašeno: <span class="highlight">1325</span> životinja</h2>
+            <ul class="nav_links">
+                <li><a href="#">SLIKE</a></li>
+                <li><a href="#">GRUPE</a></li>
+                <li><a href="prijava.html">PRIJAVA</a></li>
+                <li><a href="admin_panel.html">DODAJ ŽIVOTINJU</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="admin_form_box">
+        <form action="azuriranjezivotinja.php" method="POST" enctype="multipart/form-data">
+            <label>
+                Ime životinje:
+                <input type="text" name="animal_name" placeholder="Ime životinje" required>
+            </label><br><br>
+
+            <label>
+                Vrsta životinje:
+                <select name="animal_type" required>
+                    <option value="">Odaberite vrstu</option>
+                    <option value="pas">Pas</option>
+                    <option value="mačka">Mačka</option>
+                    <option value="zec">Zec</option>
+                    <option value="ptica">Ptica</option>
+                    <option value="drugo">Drugo</option>
+                </select>
+            </label><br><br><br>
+
+            <label>
+                Godine:
+                <input type="number" name="age" placeholder="Godine" min="0" required>
+            </label><br><br>
+
+            <label>
+                Broj kontakta:
+                <input type="tel" name="contact_number" placeholder="Broj kontakta" required>
+            </label><br><br>
+
+            <label>
+                Lokacija:
+                <input type="text" name="location" placeholder="Lokacija" required>
+            </label><br><br>
+
+            <label>
+                Opis životinje:<br><br>
+                <textarea name="description" placeholder="Kratki opis životinje" rows="4" required></textarea>
+            </label><br><br>
+
+            <label>
+                Slika životinje:
+                <input type="file" name="photo" required>
+            </label><br><br>
+
+            <button type="submit">Dodaj životinju</button>
+        </form>
+
+    </section>
+
+</body>
+</html>
