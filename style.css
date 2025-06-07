@@ -1,0 +1,274 @@
+body{
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #333333 0%, #1a1a1a 100%);
+    color: white;
+}
+
+a{
+    text-decoration: none;
+}
+
+nav{
+    display: flex;
+    justify-content: center;
+    gap: 150px;
+    align-items: center;
+    padding: 10px 30px;
+    box-shadow: 10px;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2); 
+    /* transparency/prozirnost*/
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.212);
+}
+
+.nav_links{
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav_links li a{
+    color: rgb(255, 255, 255);
+    font-weight: bolder;
+    text-decoration: none;
+    font-size: 19px;
+    transition-duration: 0.2s;
+    text-shadow: 2px 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.nav_links li a:hover{
+    color: rgb(245, 163, 22);
+}
+
+nav #header_logo{
+    width: 150px;
+}
+
+.welcome_section{
+    height: 1200px;
+    width: 100%;
+    background-color: #333;
+    background-size: cover;
+}
+
+
+#saved_animals{
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 1px 5px rgba(0, 0, 0, 0.3);
+    min-width: 200px;
+}
+
+.highlight{
+    color: rgb(255, 255, 255);
+    background-color: rgba(177, 129, 57, 0.3);
+    font-weight: bold;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+#animal_cards_naslov{
+    margin: 0;
+    margin-top: 170px;
+    padding: 10px;
+    color: white;
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    text-shadow: 0.5px 0.5px 0.5px orange;
+}
+
+.animal_card_box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.animal_cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  padding: 50px 40px;
+}
+
+.animal_cards a{
+    text-decoration: none;
+}
+
+.animal_card {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.animal_card:hover {
+  transform: translateY(-5px);
+}
+
+.animal_card img {
+  width: 100%;
+  height: 180px;
+}
+
+.animal_card h3 {
+  margin: 10px 0 5px;
+  font-size: 20px;
+  color: rgb(28, 102, 93);
+}
+
+.animal_card p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.info_section{
+    display: flex;
+    flex-wrap: wrap-reverse;
+    align-items: center;
+    justify-content: center;
+    gap: 100px;
+    margin-top: 40px;
+}
+
+#bonding_image{
+    height: 400px;
+    background-size: cover;
+    z-index: -1;    
+    border-radius: 15px;
+}
+
+.introduction,
+.end_content,
+.maja_box{
+    max-width: 550px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 15px;
+}
+
+.introduction h2{
+    text-shadow: 1px 1px 1px orange;
+    margin-bottom: 30px;
+}
+
+
+.dynamic_buttons{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 200px;
+    gap: 10px;
+    color: #333;
+    font-weight: bolder;
+}
+
+.right_button,
+.left_button {
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;     
+    background-color: aqua;       
+    width: 50%;
+    height: 110px;
+    transition: height 0.2s ease;
+}
+
+
+.right_button {
+    align-items: flex-start;  
+    margin-right: 10px;
+    padding-left: 20px;
+    background-color: #aed581;
+}
+
+.left_button {
+    align-items: flex-end;  
+    padding-right: 20px;
+    margin-left: 10px;
+    background-color: #4dd0e1;
+}
+
+
+.right_button h1,
+.right_button p,
+.left_button h1,
+.left_button p {
+    margin: 0px;
+    padding: 2px 0px;
+
+}
+
+
+.right_button:hover,
+.left_button:hover {
+    height: 125px;
+}
+
+.end_section{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: start;
+    justify-content: center;
+    margin-bottom: 100px;
+    margin-top: 40px;
+}
+
+.end_images{
+    width: 550px;
+    border-radius: 15px;
+
+}
+
+.end_content_maja{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.end_content{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.maja_img{
+    width: 600px;
+    margin-top: 25px;
+    border-radius: 15px;
+}
+
+.maja_box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+footer p{
+
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+footer{    
+    background-color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 150px;
+}
+
