@@ -28,7 +28,7 @@
     </header>
 
     <section class="admin_form_box">
-        <form action="azuriranjezivotinja.php" method="POST" enctype="multipart/form-data">
+        <form action="skripta.php" method="POST" enctype="multipart/form-data">
             <label>
                 Ime životinje:
                 <input type="text" name="animal_name" placeholder="Ime životinje" required>
@@ -70,6 +70,11 @@
                 Slika životinje:
                 <input type="file" name="photo" required>
             </label><br><br>
+
+            <label>
+                Prikaži na portalu?
+                <input type="checkbox" name="active">
+            </label>
 
             <button type="submit">Dodaj životinju</button>
         </form>

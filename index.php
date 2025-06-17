@@ -1,3 +1,11 @@
+<?php
+    include 'connect.php';
+
+    $query = "SELECT * FROM added_animals WHERE aktivno = 1 LIMIT 10";
+    $result = $conn->query($query);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,50 +27,40 @@
                 <li><a href="kategorija.php?vrsta=drugo">DRUGO</a></li>
                 <li><a href="unos.html">DODAJ ŽIVOTINJU</a></li>
                 <li><a href="administrator.php">UREDI ŽIVOTINJE</a></li>
-
+                <li><a href="registracija.php">REGISTRACIJA</a></li>
+                <li><a href="prijava.php">PRIJAVA</a></li>
             </ul>
         </nav>
     </header>
+
     <div class="animal_card_box">
         <h3 id="animal_cards_naslov">Životinje za udomljavanje</h3>
         <section class="animal_cards">
-
-            <article class="animal_card">
-                <a href="">
-                <img src="images_home/sad_dog.webp" alt="Animal 3">
-                <h3>German Shepherd</h3>
-                <p><strong>Location:</strong> Rijeka</p>
-                <p><strong>Name:</strong> Rex</p>
-                </a>
-            </article>
-
-            <article class="animal_card">
-                <a href="">
-                <img src="images_home/sad_dog.webp" alt="Animal 4">
-                <h3>Persian Cat</h3>
-                <p><strong>Location:</strong> Osijek</p>
-                <p><strong>Name:</strong> Bela</p>
-                </a>
-            </article>
-
-            <article class="animal_card">
-                <a href="">
-                <img src="images_home/sad_dog.webp" alt="Animal 5">
-                <h3>Husky</h3>
-                <p><strong>Location:</strong> Varaždin</p>
-                <p><strong>Name:</strong> Max</p>
-                </a>
-            </article>
-
-            <article class="animal_card">
-                <a href="">
-                <img src="images_home/sad_dog.webp" alt="Animal 6">
-                <h3>Mixed Breed</h3>
-                <p><strong>Location:</strong> Zadar</p>
-                <p><strong>Name:</strong> Lili</p>
-                </a>
-            </article>
+            <?php
+            $rows = mysqli_num_rows($result);
+            if ($rows > 0){
+                while ($row = mysqli_fetch_array($result)) {
+                    $slika = htmlspecialchars($row['slika']);
+                    $vrsta = htmlspecialchars($row['vrsta']);
+                    $lokacija = htmlspecialchars($row['lokacija']);
+                    $naziv = htmlspecialchars($row['naziv']);
+                ?>
+                    <article class="animal_card">
+                    <a href="./clanak.php?id=<?= $row['id'] ?>">
+                            <img src="<?php echo $slika; ?>">
+                            <h3><?php echo $vrsta; ?></h3>
+                            <p><strong>Lokacija:</strong> <?php echo $lokacija; ?></p>
+                            <p><strong>Ime:</strong> <?php echo $naziv; ?></p>
+                        </a>
+                    </article>
+                <?php
+                }
+            } else {
+                echo "<h2>Trenutno nema raspoloživih životinja</h2>";
+            }
+            ?>
         </section>
+
     </div>
 
     <section class="info_section">

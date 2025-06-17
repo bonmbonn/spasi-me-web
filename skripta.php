@@ -6,11 +6,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     $naziv = !empty($_POST['animal_name']) ? htmlspecialchars($_POST['animal_name']) : "Nema novih životinja!";
     $vrsta = !empty($_POST['animal_type']) ? htmlspecialchars($_POST['animal_type']) : null;
-    $starost = !empty($_POST['age']) ? htmlspecialchars($_POST['age']) : null;
+    $starost = isset($_POST['age']) ? (int)$_POST['age'] : null;
     $kontakt = !empty($_POST['contact_number']) ? htmlspecialchars($_POST['contact_number']) : null;
     $lokacija = !empty($_POST['location']) ? htmlspecialchars($_POST['location']) : null;
     $opis = !empty($_POST['description']) ? htmlspecialchars($_POST['description']) : null;
-
+    $active = isset($_POST['active']) ? 1 : 0;
     $putanja_slike = null;
 
     if (isset($_FILES['photo']) && $_FILES['photo']['error'] == 0) {
@@ -26,12 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
     }
 
-    $podaci = [$naziv, $vrsta, $starost, $kontakt, $lokacija, $opis, $putanja_slike];
+    $podaci = [$naziv, $vrsta, $starost, $kontakt, $lokacija, $opis, $putanja_slike, $active];
     $boolinsert = false;
 
     if (!in_array(null, $podaci, true)){
-        $stmt = $conn->prepare("INSERT INTO added_animals (naziv, vrsta, starost, kontakt, lokacija, detalji, slika) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssssss", ...$podaci);
+        $stmt = $conn->prepare("INSERT INTO added_animals (naziv, vrsta, starost, kontakt, lokacija, detalji, slika, aktivno) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssissssi", ...$podaci);
 
         if ($stmt->execute()) {
             $boolinsert = true;
@@ -72,7 +72,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             </ul>
         </nav>
     </header>
-
     <section class="show_box">
         <div>
             <section class="show_content">
