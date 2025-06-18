@@ -1,4 +1,5 @@
     <?php 
+        session_start();
         include "connect.php";
         $id = $_POST['id'] ?? '';
         $name = $_POST['naziv'] ?? '';
@@ -66,7 +67,7 @@
                         <li><a href="kategorija.php?vrsta=zec">ZEČEVI</a></li>
                         <li><a href="kategorija.php?vrsta=ptica">PTICE</a></li>
                         <li><a href="kategorija.php?vrsta=drugo">DRUGO</a></li>
-                        <li><a href="unos.html">DODAJ ŽIVOTINJU</a></li>
+                        <li><a href="unos.php">DODAJ ŽIVOTINJU</a></li>
                         <li><a href="administrator.php">UREDI ŽIVOTINJE</a></li>
                     </ul>
                 </nav>
@@ -83,5 +84,19 @@
                     }
                 ?>
             </header>
+
+    <footer>
+        <div>
+        <strong><p>&copyAdopt</p></strong>
+        </div>
+        <div>
+            <strong>
+            <p>Luka Gustetić</p>
+            <p>luka.gustetic@gmail.com</p>
+            <p>2025</p>
+            </strong>
+        </div>
+    </footer>
+    
         </body>
     </html>

@@ -2,8 +2,6 @@
     session_start();
     include 'connect.php';
 
-    $uspjesnaPrijava = false;
-    $admin = false;
     $msg = '';
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -28,7 +26,9 @@
                     $_SESSION['razina'] = $razina;
 
                     if ($razina == 1) {
-                        $admin = true;
+                        $_SESSION['razina'] = 1;
+                    } else {
+                        $_SESSION['razina'] = 0;
                     }
 
                     //redirekcija nakon prijave
@@ -59,7 +59,9 @@
 <body>
     <header>
         <nav class="admin_header">
-            <a href="index.php"><img src="images_home/temp_logo.webp" alt="logo udruge"  id="header_logo"></a>
+            <a href="index.php">
+                <img src="images_home/temp_logo.webp" alt="logo udruge" id="header_logo">
+            </a>
             <h2 id="saved_animals">Do sad spašeno: <span class="highlight">1325</span> životinja</h2>
             <ul class="nav_links">
                 <li><a href="kategorija.php?vrsta=mačka">MAČKE</a></li>
@@ -67,10 +69,20 @@
                 <li><a href="kategorija.php?vrsta=zec">ZEČEVI</a></li>
                 <li><a href="kategorija.php?vrsta=ptica">PTICE</a></li>
                 <li><a href="kategorija.php?vrsta=drugo">DRUGO</a></li>
-                <li><a href="unos.html">DODAJ ŽIVOTINJU</a></li>
-                <li><a href="administrator.php">UREDI ŽIVOTINJE</a></li>
-                <li><a href="registracija.html">REGISTRACIJA</a></li>
-                <li><a href="prijava.html">PRIJAVA</a></li>
+
+                <?php if (isset($_SESSION['username']) && $_SESSION['razina'] == 1): ?>
+                    <li><a href="unos.php">DODAJ ŽIVOTINJU</a></li>
+                    <li><a href="administrator.php">UREDI ŽIVOTINJE</a></li>
+                <?php elseif (isset($_SESSION['username']) && $_SESSION['razina'] == 0): ?>
+                    <li><a href="unos.php">DODAJ ŽIVOTINJU</a></li>
+                <?php endif; ?>
+
+                <?php if (!isset($_SESSION['username'])): ?>
+                    <li><a href="registracija.php">REGISTRACIJA</a></li>
+                    <li><a href="prijava.php">PRIJAVA</a></li>
+                <?php else: ?>
+                    <li><a href="logout.php">ODJAVA (<?= htmlspecialchars($_SESSION['username']) ?>)</a></li>
+                <?php endif; ?>
             </ul>
         </nav>
     </header>
@@ -83,7 +95,7 @@
             <input type="text" placeholder="Korisničko ime" required name="username"/>
             <input type="password" placeholder="Lozinka" required name="password"/>
             <button type="submit">Prijavi se</button>
-            <p class="switch_text">Nemaš račun? <a href="./registracija.html">Registriraj se</a></p>
+            <p class="switch_text">Nemaš račun? <a href="./registracija.php">Registriraj se</a></p>
         </form>
             <?php 
         if ($_SERVER['REQUEST_METHOD'] === "POST"){
@@ -92,5 +104,18 @@
     ?>
     </section>
 
+
+    <footer>
+        <div>
+        <strong><p>&copyAdopt</p></strong>
+        </div>
+        <div>
+            <strong>
+            <p>Luka Gustetić</p>
+            <p>luka.gustetic@gmail.com</p>
+            <p>2025</p>
+            </strong>
+        </div>
+    </footer>
 </body>
 </html>

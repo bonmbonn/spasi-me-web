@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include 'connect.php';
 
     $query = "SELECT * FROM added_animals WHERE aktivno = 1 LIMIT 10";
@@ -15,23 +16,34 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <header>
-        <nav class="admin_header">
-            <a href="index.php"><img src="images_home/temp_logo.webp" alt="logo udruge"  id="header_logo"></a>
-            <h2 id="saved_animals">Do sad spašeno: <span class="highlight">1325</span> životinja</h2>
-            <ul class="nav_links">
-                <li><a href="kategorija.php?vrsta=mačka">MAČKE</a></li>
-                <li><a href="kategorija.php?vrsta=pas">PSI</a></li>
-                <li><a href="kategorija.php?vrsta=zec">ZEČEVI</a></li>
-                <li><a href="kategorija.php?vrsta=ptica">PTICE</a></li>
-                <li><a href="kategorija.php?vrsta=drugo">DRUGO</a></li>
-                <li><a href="unos.html">DODAJ ŽIVOTINJU</a></li>
+<header>
+    <nav class="admin_header">
+        <a href="index.php">
+            <img src="images_home/temp_logo.webp" alt="logo udruge" id="header_logo">
+        </a>
+        <ul class="nav_links">
+            <li><a href="kategorija.php?vrsta=mačka">MAČKE</a></li>
+            <li><a href="kategorija.php?vrsta=pas">PSI</a></li>
+            <li><a href="kategorija.php?vrsta=zec">ZEČEVI</a></li>
+            <li><a href="kategorija.php?vrsta=ptica">PTICE</a></li>
+            <li class="test"><a href="kategorija.php?vrsta=drugo">DRUGO</a></li>
+
+            <?php if (isset($_SESSION['username']) && $_SESSION['razina'] == 1): ?>
+                <li><a href="unos.php">DODAJ ŽIVOTINJU</a></li>
                 <li><a href="administrator.php">UREDI ŽIVOTINJE</a></li>
+            <?php elseif (isset($_SESSION['username']) && $_SESSION['razina'] == 0): ?>
+                <li><a href="unos.php">DODAJ ŽIVOTINJU</a></li>
+            <?php endif; ?>
+
+            <?php if (!isset($_SESSION['username'])): ?>
                 <li><a href="registracija.php">REGISTRACIJA</a></li>
                 <li><a href="prijava.php">PRIJAVA</a></li>
-            </ul>
-        </nav>
-    </header>
+            <?php else: ?>
+                <li><a href="logout.php">ODJAVA (<?= htmlspecialchars($_SESSION['username']) ?>)</a></li>
+            <?php endif; ?>
+        </ul>
+    </nav>
+</header>
 
     <div class="animal_card_box">
         <h3 id="animal_cards_naslov">Životinje za udomljavanje</h3>

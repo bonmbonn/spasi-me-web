@@ -108,6 +108,7 @@ nav #header_logo{
   overflow: hidden;
   text-align: center;
   transition: transform 0.3s ease;
+  line-height: 23px;
 }
 
 .animal_card:hover {
@@ -146,6 +147,31 @@ nav #header_logo{
     z-index: -1;    
     border-radius: 15px;
 }
+
+.btn-u{
+    margin-bottom: 20px;
+    margin-top: 20px;
+    font-size: 17px;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-evenly;
+    font-weight: bolder;
+}
+
+.btn-u a{
+    text-decoration: none;
+    color: #757575;
+    text-shadow: 0.5px 0.5px 1px black;
+    transition-duration: 0.2s;
+}
+
+.btn-u a:hover{
+    text-decoration: none;
+    color: #b1b0b0;
+    text-shadow: 0.5px 0.5px 1px black;
+}
+
+
 
 .introduction,
 .end_content,
@@ -259,7 +285,6 @@ nav #header_logo{
 }
 
 footer p{
-
     padding-left: 20px;
     padding-right: 20px;
 }
@@ -270,6 +295,7 @@ footer{
     align-items: center;
     justify-content: space-between;
     height: 150px;
+    width: 100%;
 }
 
 
@@ -392,7 +418,6 @@ form input:focus {
   position: relative;
 }
 
-/* Optional arrow icon */
 .custom_select::after {
   content: "▼";
   position: absolute;
@@ -431,7 +456,18 @@ form input:focus {
     flex-direction: column;
 }
 
+
+
 .false_info a{
     text-decoration: none;
     color: rgb(255, 111, 0);
+}
+
+section .corr_info p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    font-size: 15px;
+    color: green;
 }

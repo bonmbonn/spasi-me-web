@@ -1,48 +1,48 @@
 <?php 
+    session_start();
+    include 'connect.php';
 
-include 'connect.php';
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        $naziv = !empty($_POST['animal_name']) ? htmlspecialchars($_POST['animal_name']) : "Nema novih životinja!";
+        $vrsta = !empty($_POST['animal_type']) ? htmlspecialchars($_POST['animal_type']) : null;
+        $starost = isset($_POST['age']) ? (int)$_POST['age'] : null;
+        $kontakt = !empty($_POST['contact_number']) ? htmlspecialchars($_POST['contact_number']) : null;
+        $lokacija = !empty($_POST['location']) ? htmlspecialchars($_POST['location']) : null;
+        $opis = !empty($_POST['description']) ? htmlspecialchars($_POST['description']) : null;
+        $active = isset($_POST['active']) ? 1 : 0;
+        $putanja_slike = null;
 
-    $naziv = !empty($_POST['animal_name']) ? htmlspecialchars($_POST['animal_name']) : "Nema novih životinja!";
-    $vrsta = !empty($_POST['animal_type']) ? htmlspecialchars($_POST['animal_type']) : null;
-    $starost = isset($_POST['age']) ? (int)$_POST['age'] : null;
-    $kontakt = !empty($_POST['contact_number']) ? htmlspecialchars($_POST['contact_number']) : null;
-    $lokacija = !empty($_POST['location']) ? htmlspecialchars($_POST['location']) : null;
-    $opis = !empty($_POST['description']) ? htmlspecialchars($_POST['description']) : null;
-    $active = isset($_POST['active']) ? 1 : 0;
-    $putanja_slike = null;
+        if (isset($_FILES['photo']) && $_FILES['photo']['error'] == 0) {
 
-    if (isset($_FILES['photo']) && $_FILES['photo']['error'] == 0) {
+            $folder = 'uploads/';
 
-        $folder = 'uploads/';
-
-        $nova_putanja = $folder . basename($_FILES['photo']['name']);
-        //return je bool
-        if (move_uploaded_file($_FILES['photo']['tmp_name'], $nova_putanja)) {
-            $putanja_slike = $nova_putanja;
-        } else {
-            $putanja_slike = null;
-        }
-    }
-
-    $podaci = [$naziv, $vrsta, $starost, $kontakt, $lokacija, $opis, $putanja_slike, $active];
-    $boolinsert = false;
-
-    if (!in_array(null, $podaci, true)){
-        $stmt = $conn->prepare("INSERT INTO added_animals (naziv, vrsta, starost, kontakt, lokacija, detalji, slika, aktivno) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssissssi", ...$podaci);
-
-        if ($stmt->execute()) {
-            $boolinsert = true;
-        } else {
-            echo "Greška kod unosa: " . $stmt->error;
+            $nova_putanja = $folder . basename($_FILES['photo']['name']);
+            //return je bool
+            if (move_uploaded_file($_FILES['photo']['tmp_name'], $nova_putanja)) {
+                $putanja_slike = $nova_putanja;
+            } else {
+                $putanja_slike = null;
+            }
         }
 
-        $stmt->close();
+        $podaci = [$naziv, $vrsta, $starost, $kontakt, $lokacija, $opis, $putanja_slike, $active];
+        $boolinsert = false;
+
+        if (!in_array(null, $podaci, true)){
+            $stmt = $conn->prepare("INSERT INTO added_animals (naziv, vrsta, starost, kontakt, lokacija, detalji, slika, aktivno) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssissssi", ...$podaci);
+
+            if ($stmt->execute()) {
+                $boolinsert = true;
+            } else {
+                echo "Greška kod unosa: " . $stmt->error;
+            }
+
+            $stmt->close();
+        }
+        
     }
-     
-}
 ?>
 
 
@@ -56,22 +56,35 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 </head>
 
 <body class="admin_body">
-    <header>
-        <nav class="admin_header">
-            <a href="index.php"><img src="images_home/temp_logo.webp" alt="logo udruge"  id="header_logo"></a>
-            <h2 id="saved_animals">Do sad spašeno: <span class="highlight">1325</span> životinja</h2>
-            <ul class="nav_links">
-                <li><a href="kategorija.php?vrsta=mačka">MAČKE</a></li>
-                <li><a href="kategorija.php?vrsta=pas">PSI</a></li>
-                <li><a href="kategorija.php?vrsta=zec">ZEČEVI</a></li>
-                <li><a href="kategorija.php?vrsta=ptica">PTICE</a></li>
-                <li><a href="kategorija.php?vrsta=drugo">DRUGO</a></li>
-                <li><a href="unos.html">DODAJ ŽIVOTINJU</a></li>
-                <li><a href="administrator.php">UREDI ŽIVOTINJE</a></li>
+<header>
+    <nav class="admin_header">
+        <a href="index.php">
+            <img src="images_home/temp_logo.webp" alt="logo udruge" id="header_logo">
+        </a>
+        <h2 id="saved_animals">Do sad spašeno: <span class="highlight">1325</span> životinja</h2>
+        <ul class="nav_links">
+            <li><a href="kategorija.php?vrsta=mačka">MAČKE</a></li>
+            <li><a href="kategorija.php?vrsta=pas">PSI</a></li>
+            <li><a href="kategorija.php?vrsta=zec">ZEČEVI</a></li>
+            <li><a href="kategorija.php?vrsta=ptica">PTICE</a></li>
+            <li><a href="kategorija.php?vrsta=drugo">DRUGO</a></li>
 
-            </ul>
-        </nav>
-    </header>
+            <?php if (isset($_SESSION['username']) && $_SESSION['razina'] == 1): ?>
+                <li><a href="unos.php">DODAJ ŽIVOTINJU</a></li>
+                <li><a href="administrator.php">UREDI ŽIVOTINJE</a></li>
+            <?php elseif (isset($_SESSION['username']) && $_SESSION['razina'] == 0): ?>
+                <li><a href="unos.php">DODAJ ŽIVOTINJU</a></li>
+            <?php endif; ?>
+
+            <?php if (!isset($_SESSION['username'])): ?>
+                <li><a href="registracija.php">REGISTRACIJA</a></li>
+                <li><a href="prijava.php">PRIJAVA</a></li>
+            <?php else: ?>
+                <li><a href="logout.php">ODJAVA (<?= htmlspecialchars($_SESSION['username']) ?>)</a></li>
+            <?php endif; ?>
+        </ul>
+    </nav>
+</header>
     <section class="show_box">
         <div>
             <section class="show_content">
@@ -92,5 +105,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             </section>
         </div>
     </section>
+
+
+
+    <footer>
+        <div>
+        <strong><p>&copyAdopt</p></strong>
+        </div>
+        <div>
+            <strong>
+            <p>Luka Gustetić</p>
+            <p>luka.gustetic@gmail.com</p>
+            <p>2025</p>
+            </strong>
+        </div>
+    </footer>
 </body>
 </html>
