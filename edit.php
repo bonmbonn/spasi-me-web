@@ -95,7 +95,7 @@
 
         <label>
             Unesi novu sliku:
-            <input type="file" name="slika">
+            <input type="file" name="slika" accept="image/*">
             <br>Trenutna slika:
             <img src="<?= $animal['slika'] ?>" alt="" style = "max-width: 250px;">
         </label><br><br>

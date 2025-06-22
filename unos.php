@@ -82,7 +82,7 @@
 
             <label>
                 Slika životinje:
-                <input type="file" name="photo" required>
+                <input type="file" name="photo" accept="image/*" required>
             </label><br><br>
 
             <label>
