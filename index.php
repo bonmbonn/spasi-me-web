@@ -57,13 +57,14 @@
                     $vrsta = htmlspecialchars($row['vrsta']);
                     $lokacija = htmlspecialchars($row['lokacija']);
                     $naziv = htmlspecialchars($row['naziv']);
+                    $starost = htmlspecialchars(string: $row['starost'])
                 ?>
                     <article class="animal_card">
                     <a href="./clanak.php?id=<?= $row['id'] ?>">
                             <img src="<?php echo $slika; ?>">
-                            <h3><?php echo $vrsta; ?></h3>
+                            <h3><?php echo $naziv; ?></h3>
                             <p><strong>Lokacija:</strong> <?php echo $lokacija; ?></p>
-                            <p><strong>Ime:</strong> <?php echo $naziv; ?></p>
+                            <p><strong>Dob:</strong> <?php echo $starost." god"; ?></p>
                         </a>
                     </article>
                 <?php

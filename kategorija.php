@@ -80,13 +80,14 @@
                     $vrsta = htmlspecialchars($row['vrsta']);
                     $lokacija = htmlspecialchars($row['lokacija']);
                     $naziv = htmlspecialchars($row['naziv']);
-                ?>
+                    $starost = htmlspecialchars($row['starost']);
+            ?>
                     <article class="animal_card">
                         <a href="./clanak.php?id=<?= $row['id'] ?>">
                             <img src="<?= $slika ?>">
-                            <h3><?= $vrsta ?></h3>
+                            <h3><?= $naziv ?></h3>
                             <p><strong>Lokacija:</strong> <?= $lokacija ?></p>
-                            <p><strong>Ime:</strong> <?= $naziv ?></p>
+                            <p><strong>Dob:</strong> <?= $starost." god"; ?></p>
                         </a>
                     </article>
                 <?php endwhile; ?>

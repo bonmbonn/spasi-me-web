@@ -105,7 +105,7 @@
             <input type="checkbox" name="aktivno" <?= ($animal['aktivno'] ?? 0) == 1 ? 'checked' : '' ?>>
         </label>
 
-            <button type="submit">Dodaj životinju</button>
+            <button type="submit">Pohrani promjene</button>
             <input type="hidden" name="id" value="<?= htmlspecialchars($animal['id'] ?? '') ?>">
             <input type="hidden" name="trenutna_slika" value="<?= htmlspecialchars($animal['slika'] ?? '') ?>">
         </form>
