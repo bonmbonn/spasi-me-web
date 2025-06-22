@@ -4,15 +4,20 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     background: linear-gradient(135deg, #333333 0%, #1a1a1a 100%);
     color: rgb(255, 255, 255);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 a{
     text-decoration: none;
 }
 
+
+
 nav{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     gap: 150px;
     align-items: center;
     padding: 10px 30px;
@@ -21,10 +26,15 @@ nav{
     width: 100%;
     z-index: 1000;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2); 
-    /* transparency/prozirnost*/
+    box-sizing: border-box;
+    /*prozirnost*/
     background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.212);
+}
+
+li{
+    list-style: none;
 }
 
 .nav_links{
@@ -33,7 +43,18 @@ nav{
     gap: 20px;
 }
 
-.nav_links li a{
+
+.nav_links_center{
+    position: absolute;
+    left: 50%;
+    gap: 20px;
+    transform: translate(-54%);
+    display: flex;
+    align-items: center;
+}
+
+.nav_links li a,
+.nav_links_center li a{
     color: rgb(255, 255, 255);
     font-weight: bolder;
     text-decoration: none;
@@ -42,7 +63,8 @@ nav{
     text-shadow: 2px 1px 5px rgba(0, 0, 0, 0.3);
 }
 
-.nav_links li a:hover{
+.nav_links li a:hover,
+.nav_links_center li a:hover{
     color: rgb(245, 163, 22);
 }
 
@@ -253,10 +275,14 @@ nav #header_logo{
     margin-top: 40px;
 }
 
-.end_images{
+.end_image1{
     width: 550px;
     border-radius: 15px;
+}
 
+.end_image2{
+    width: 550px;
+    border-radius: 15px;
 }
 
 .end_content_maja{
@@ -270,6 +296,7 @@ nav #header_logo{
     margin-top: 50px;
     margin-bottom: 50px;
 }
+
 
 .maja_img{
     width: 600px;
@@ -291,16 +318,22 @@ footer p{
 
 footer{    
     background-color: #1a1a1a;
+    margin-top: auto;
     display: flex;
-    align-items: center;
+    flex-direction: row;
     justify-content: space-between;
-    height: 150px;
+    align-items: center;
+    height: 115px;
     width: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.212);
 }
 
 
 .admin_form_box{
-    margin-top: 50px;
+    margin-top: 75px;
+    margin-bottom: 75px;
     margin-left: 50%;
     transform: translate(-50%);
     display: flex;
@@ -319,6 +352,7 @@ footer{
 
 .admin_header{
     position: relative;
+    width: 100%;
 }
 
 form input{
@@ -348,6 +382,8 @@ form input:focus {
   transition: background-color 0.3s, box-shadow 0.3s;
 }
 
+
+
 .admin_form_box button{
     width: 100%;
     padding: 10px;
@@ -365,6 +401,7 @@ form input:focus {
     width: 100%;
     height: 100%;
     background-image: url(./images_home/dogs_in_cage.jpg);
+    background-size: cover;
 }
 
 .show_box {
@@ -372,7 +409,7 @@ form input:focus {
     justify-content: center;
     align-items: center;
     padding: 20px;
-    margin-top: 30px;
+    margin-top: 125px;
 }
 
 .show_content {
@@ -434,7 +471,7 @@ form input:focus {
     justify-content: center;
     color: green;
     margin-top: 50px;
-    font-size: 30px;
+    font-size: 20px;
 }
 
 .deleted_txt_nok{
@@ -443,7 +480,7 @@ form input:focus {
     justify-content: center;
     color: red;
     margin-top: 50px;
-    font-size: 30px;
+    font-size: 20px;
 }
 
 .false_info{
@@ -463,11 +500,196 @@ form input:focus {
     color: rgb(255, 111, 0);
 }
 
-section .corr_info p{
+.corr_info{
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 20px;
     font-size: 15px;
     color: green;
+}
+
+
+
+.form_box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /*top 50% and left 50% center by top right of the square, so this fixes it to the middle*/
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    text-align: center;
+    width: 550px;
+}
+
+.form_flex{
+    display: flex;
+    flex-direction: column;
+}
+
+.form_box h2 {
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 3px black;
+}
+
+.form_box input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px;
+}
+
+.form_box input::placeholder {
+    color: #ccc;
+}
+
+.form_box button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #f5a316;
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #e58e00;
+}
+
+
+
+.switch_text {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.switch_text a {
+    color: #f5a316;
+    text-decoration: none;
+}
+
+
+@media screen and (max-width: 1024px) {
+
+.nav_links {
+    gap: 10px;
+}
+
+.animal_cards {
+    padding: 30px 20px;
+    gap: 20px;
+}
+
+.animal_card {
+    width: 90%;
+}
+
+.info_section {
+    flex-direction: column;
+    gap: 50px;
+}
+
+.btn-u {
+    flex-direction: column;
+    align-items: center;
+}
+
+.right_button,
+.left_button {
+    width: 90%;
+    align-items: center;
+    padding: 20px;
+}
+
+.end_section {
+    flex-direction: column;
+    align-items: center;
+}
+
+.end_image1,
+.end_image2,
+.maja_img {
+    width: 90%;
+}
+
+.form_box {
+    width: 90%;
+    padding: 30px;
+}
+
+.admin_form_box {
+    width: 90%;
+    margin-left: 5%;
+    transform: none;
+    padding: 30px;
+}
+
+.show_content {
+    width: 90%;
+    font-size: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 600px) {
+nav {
+        flex-direction: column;
+    gap: 10px;
+    padding: 10px 15px;
+}
+
+nav #header_logo {
+    width: 120px;
+}
+
+.nav_links {
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.form_box input,
+.form_box button,
+.admin_form_box input,
+.admin_form_box button {
+    font-size: 14px;
+}
+
+.animal_card img {
+    height: 150px;
+}
+
+.animal_card h3 {
+    font-size: 18px;
+}
+
+.animal_card p {
+    font-size: 14px;
+}
+
+.dynamic_buttons {
+    flex-direction: column;
+    height: auto;
+}
+
+.right_button,
+.left_button {
+    height: auto;
+    margin: 0;
+    padding: 20px;
+    }
+}
+
+@media screen and (max-width: 1450px) {
+.nav_links_center {
+    display: none;  
+    }
 }

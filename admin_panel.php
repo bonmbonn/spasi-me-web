@@ -17,28 +17,28 @@
         <a href="index.php">
             <img src="images_home/temp_logo.webp" alt="logo udruge" id="header_logo">
         </a>
-        <h2 id="saved_animals">Do sad spašeno: <span class="highlight">1325</span> životinja</h2>
-        <ul class="nav_links">
-            <li><a href="kategorija.php?vrsta=mačka">MAČKE</a></li>
-            <li><a href="kategorija.php?vrsta=pas">PSI</a></li>
-            <li><a href="kategorija.php?vrsta=zec">ZEČEVI</a></li>
-            <li><a href="kategorija.php?vrsta=ptica">PTICE</a></li>
-            <li><a href="kategorija.php?vrsta=drugo">DRUGO</a></li>
+            <ul class="nav_links_center">
+                <li><a href="kategorija.php?vrsta=mačka">MAČKE</a></li>
+                <li><a href="kategorija.php?vrsta=pas">PSI</a></li>
+                <li><a href="kategorija.php?vrsta=zec">ZEČEVI</a></li>
+                <li><a href="kategorija.php?vrsta=ptica">PTICE</a></li>
+                <li class="test"><a href="kategorija.php?vrsta=drugo">OSTALI</a></li>
+            </ul>
+            <ul class="nav_links">
+                <?php if (isset($_SESSION['username']) && $_SESSION['razina'] == 1): ?>
+                    <li><a href="unos.php">DODAJ ŽIVOTINJU</a></li>
+                    <li><a href="administrator.php">UREDI ŽIVOTINJE</a></li>
+                <?php elseif (isset($_SESSION['username']) && $_SESSION['razina'] == 0): ?>
+                    <li><a href="unos.php">DODAJ ŽIVOTINJU</a></li>
+                <?php endif; ?>
 
-            <?php if (isset($_SESSION['username']) && $_SESSION['razina'] == 1): ?>
-                <li><a href="unos.php">DODAJ ŽIVOTINJU</a></li>
-                <li><a href="administrator.php">UREDI ŽIVOTINJE</a></li>
-            <?php elseif (isset($_SESSION['username']) && $_SESSION['razina'] == 0): ?>
-                <li><a href="unos.php">DODAJ ŽIVOTINJU</a></li>
-            <?php endif; ?>
-
-            <?php if (!isset($_SESSION['username'])): ?>
-                <li><a href="registracija.php">REGISTRACIJA</a></li>
-                <li><a href="prijava.php">PRIJAVA</a></li>
-            <?php else: ?>
-                <li><a href="logout.php">ODJAVA (<?= htmlspecialchars($_SESSION['username']) ?>)</a></li>
-            <?php endif; ?>
-        </ul>
+                <?php if (!isset($_SESSION['username'])): ?>
+                    <li><a href="registracija.php">REGISTRACIJA</a></li>
+                    <li><a href="prijava.php">PRIJAVA</a></li>
+                <?php else: ?>
+                    <li><a href="logout.php">ODJAVA (<?= htmlspecialchars($_SESSION['username']) ?>)</a></li>
+                <?php endif; ?>
+            </ul>
     </nav>
 </header>
 
@@ -90,17 +90,18 @@
         </form>
 
     </section>
-<footer>
-    <div>
-       <strong><p>&copyAdopt</p></strong>
-    </div>
-    <div>
-        <strong>
-        <p>Luka Gustetić</p>
-        <p>luka.gustetic@gmail.com</p>
-        <p>2025</p>
-        </strong>
-    </div>
-</footer>
+
+    <footer>
+        <div>
+        <strong><p>&copySpasi.me</p></strong>
+        </div>
+        <div>
+            <strong>
+            <p>Luka Gustetić</p>
+            <p>luka.gustetic@gmail.com</p>
+            <p>2025</p>
+            </strong>
+        </div>
+    </footer>
 </body>
 </html>

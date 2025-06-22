@@ -57,19 +57,19 @@
 
 
 <body>
-    <header>
-        <nav class="admin_header">
-            <a href="index.php">
-                <img src="images_home/temp_logo.webp" alt="logo udruge" id="header_logo">
-            </a>
-            <h2 id="saved_animals">Do sad spašeno: <span class="highlight">1325</span> životinja</h2>
-            <ul class="nav_links">
+<header>
+    <nav class="admin_header">
+        <a href="index.php">
+            <img src="images_home/temp_logo.webp" alt="logo udruge" id="header_logo">
+        </a>
+            <ul class="nav_links_center">
                 <li><a href="kategorija.php?vrsta=mačka">MAČKE</a></li>
                 <li><a href="kategorija.php?vrsta=pas">PSI</a></li>
                 <li><a href="kategorija.php?vrsta=zec">ZEČEVI</a></li>
                 <li><a href="kategorija.php?vrsta=ptica">PTICE</a></li>
-                <li><a href="kategorija.php?vrsta=drugo">DRUGO</a></li>
-
+                <li class="test"><a href="kategorija.php?vrsta=drugo">OSTALI</a></li>
+            </ul>
+            <ul class="nav_links">
                 <?php if (isset($_SESSION['username']) && $_SESSION['razina'] == 1): ?>
                     <li><a href="unos.php">DODAJ ŽIVOTINJU</a></li>
                     <li><a href="administrator.php">UREDI ŽIVOTINJE</a></li>
@@ -84,8 +84,8 @@
                     <li><a href="logout.php">ODJAVA (<?= htmlspecialchars($_SESSION['username']) ?>)</a></li>
                 <?php endif; ?>
             </ul>
-        </nav>
-    </header>
+    </nav>
+</header>
 
 
 
@@ -107,7 +107,7 @@
 
     <footer>
         <div>
-        <strong><p>&copyAdopt</p></strong>
+            <strong><p>&copySpasi.me</p></strong>
         </div>
         <div>
             <strong>

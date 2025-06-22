@@ -2,23 +2,27 @@
     session_start();
     include 'connect.php';
     $admin = true;
-    // Provjera je li korisnik prijavljen i ima li administratorska prava (razina = 1)
+
     if (!isset($_SESSION['razina']) || $_SESSION['razina'] != 1) {
-        $msg = "<h2 class='false_info'>Pristup dozvoljen samo administratorima. <a href='prijava.php'>Prijavite se ovdje.</a></h2>";
+        $msg = "<h2 class='false_info'>Pristup dozvoljen samo administratorima. <br><br><a href='prijava.php'>Prijavite se ovdje sa profilom veće razine.</a></h2>";
         $admin = false;
     }
 
     if ($admin){
         $category = $_GET['vrsta'] ?? '';
-
-    
-        $query = "SELECT * FROM added_animals";
-
+        
         if (!empty($category)) {
-            $category = $conn->real_escape_string($category);
-            $query .= " WHERE vrsta = '$category'";   
+            $query = "SELECT * FROM added_animals WHERE vrsta = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("s", $category);
+        } else{
+            $query = "SELECT * FROM added_animals";
+            $stmt = $conn->prepare($query);
         }
-        $result = $conn->query($query);
+
+
+        $stmt->execute();
+        $result = $stmt->get_result();
     }
 ?>
 
@@ -39,28 +43,28 @@
         <a href="index.php">
             <img src="images_home/temp_logo.webp" alt="logo udruge" id="header_logo">
         </a>
-        <h2 id="saved_animals">Do sad spašeno: <span class="highlight">1325</span> životinja</h2>
-        <ul class="nav_links">
-            <li><a href="kategorija.php?vrsta=mačka">MAČKE</a></li>
-            <li><a href="kategorija.php?vrsta=pas">PSI</a></li>
-            <li><a href="kategorija.php?vrsta=zec">ZEČEVI</a></li>
-            <li><a href="kategorija.php?vrsta=ptica">PTICE</a></li>
-            <li><a href="kategorija.php?vrsta=drugo">DRUGO</a></li>
+            <ul class="nav_links_center">
+                <li><a href="kategorija.php?vrsta=mačka">MAČKE</a></li>
+                <li><a href="kategorija.php?vrsta=pas">PSI</a></li>
+                <li><a href="kategorija.php?vrsta=zec">ZEČEVI</a></li>
+                <li><a href="kategorija.php?vrsta=ptica">PTICE</a></li>
+                <li class="test"><a href="kategorija.php?vrsta=drugo">OSTALI</a></li>
+            </ul>
+            <ul class="nav_links">
+                <?php if (isset($_SESSION['username']) && $_SESSION['razina'] == 1): ?>
+                    <li><a href="unos.php">DODAJ ŽIVOTINJU</a></li>
+                    <li><a href="administrator.php">UREDI ŽIVOTINJE</a></li>
+                <?php elseif (isset($_SESSION['username']) && $_SESSION['razina'] == 0): ?>
+                    <li><a href="unos.php">DODAJ ŽIVOTINJU</a></li>
+                <?php endif; ?>
 
-            <?php if (isset($_SESSION['username']) && $_SESSION['razina'] == 1): ?>
-                <li><a href="unos.php">DODAJ ŽIVOTINJU</a></li>
-                <li><a href="administrator.php">UREDI ŽIVOTINJE</a></li>
-            <?php elseif (isset($_SESSION['username']) && $_SESSION['razina'] == 0): ?>
-                <li><a href="unos.php">DODAJ ŽIVOTINJU</a></li>
-            <?php endif; ?>
-
-            <?php if (!isset($_SESSION['username'])): ?>
-                <li><a href="registracija.php">REGISTRACIJA</a></li>
-                <li><a href="prijava.php">PRIJAVA</a></li>
-            <?php else: ?>
-                <li><a href="logout.php">ODJAVA (<?= htmlspecialchars($_SESSION['username']) ?>)</a></li>
-            <?php endif; ?>
-        </ul>
+                <?php if (!isset($_SESSION['username'])): ?>
+                    <li><a href="registracija.php">REGISTRACIJA</a></li>
+                    <li><a href="prijava.php">PRIJAVA</a></li>
+                <?php else: ?>
+                    <li><a href="logout.php">ODJAVA (<?= htmlspecialchars($_SESSION['username']) ?>)</a></li>
+                <?php endif; ?>
+            </ul>
     </nav>
 </header>
     
@@ -107,23 +111,24 @@
                 <?php endwhile; ?>
             <?php endif; ?>
         </section>
-    </section>
+    </div>
+
     <?php else: ?>
         <?= $msg; ?>
     <?php endif; ?>
 
     <footer>
-    <div>
-    <strong><p>&copyAdopt</p></strong>
-    </div>
-    <div>
-        <strong>
-        <p>Luka Gustetić</p>
-        <p>luka.gustetic@gmail.com</p>
-        <p>2025</p>
-        </strong>
-    </div>
-</footer>
+        <div>
+        <strong><p>&copySpasi.me</p></strong>
+        </div>
+        <div>
+            <strong>
+            <p>Luka Gustetić</p>
+            <p>luka.gustetic@gmail.com</p>
+            <p>2025</p>
+            </strong>
+        </div>
+    </footer>
 </body>
 </html>
  
